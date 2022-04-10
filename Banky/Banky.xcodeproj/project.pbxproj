@@ -30,6 +30,8 @@
 		03BCE3AB2802B94A003B164C /* ShakeyBellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3AA2802B94A003B164C /* ShakeyBellView.swift */; };
 		03BCE3AD2802F072003B164C /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3AC2802F072003B164C /* Date+Utils.swift */; };
 		03BCE3AF2802F192003B164C /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3AE2802F192003B164C /* AccountSummaryViewController+Networking.swift */; };
+		03BCE3B328030035003B164C /* ProfileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3B228030035003B164C /* ProfileTest.swift */; };
+		03BCE3B52803017A003B164C /* AccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3B42803017A003B164C /* AccountTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		03BCE3AA2802B94A003B164C /* ShakeyBellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeyBellView.swift; sourceTree = "<group>"; };
 		03BCE3AC2802F072003B164C /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		03BCE3AE2802F192003B164C /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
+		03BCE3B228030035003B164C /* ProfileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTest.swift; sourceTree = "<group>"; };
+		03BCE3B42803017A003B164C /* AccountTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +200,8 @@
 		03BCE39B2802759D003B164C /* BankyUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				03BCE3A328027636003B164C /* CurrencyFormatterTest.swift */,
+				03BCE3B12803001A003B164C /* AccountSummary */,
+				03BCE3B028030008003B164C /* Utils */,
 			);
 			path = BankyUnitTests;
 			sourceTree = "<group>";
@@ -207,6 +212,23 @@
 				03BCE3AA2802B94A003B164C /* ShakeyBellView.swift */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		03BCE3B028030008003B164C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				03BCE3A328027636003B164C /* CurrencyFormatterTest.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		03BCE3B12803001A003B164C /* AccountSummary */ = {
+			isa = PBXGroup;
+			children = (
+				03BCE3B228030035003B164C /* ProfileTest.swift */,
+				03BCE3B42803017A003B164C /* AccountTest.swift */,
+			);
+			path = AccountSummary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +360,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				03BCE3A428027636003B164C /* CurrencyFormatterTest.swift in Sources */,
+				03BCE3B52803017A003B164C /* AccountTest.swift in Sources */,
+				03BCE3B328030035003B164C /* ProfileTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
