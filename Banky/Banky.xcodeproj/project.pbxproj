@@ -34,6 +34,8 @@
 		03BCE3B52803017A003B164C /* AccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3B42803017A003B164C /* AccountTest.swift */; };
 		03BCE3B728032B5C003B164C /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3B628032B5C003B164C /* SkeletonLoadable.swift */; };
 		03BCE3B928032C4D003B164C /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3B828032C4D003B164C /* SkeletonCell.swift */; };
+		03BCE3BC2803B54B003B164C /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3BB2803B54B003B164C /* ProfileManager.swift */; };
+		03BCE3BE2803B71D003B164C /* AccountSummaryViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCE3BD2803B71D003B164C /* AccountSummaryViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		03BCE3B42803017A003B164C /* AccountTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTest.swift; sourceTree = "<group>"; };
 		03BCE3B628032B5C003B164C /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
 		03BCE3B828032C4D003B164C /* SkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
+		03BCE3BB2803B54B003B164C /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		03BCE3BD2803B71D003B164C /* AccountSummaryViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewControllerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,7 @@
 				03BCE3AE2802F192003B164C /* AccountSummaryViewController+Networking.swift */,
 				03BCE38E2801D149003B164C /* Header */,
 				03BCE38F2801D15E003B164C /* Cells */,
+				03BCE3BA2803B52E003B164C /* Networking */,
 			);
 			name = AccountSummary;
 			sourceTree = "<group>";
@@ -233,8 +238,17 @@
 			children = (
 				03BCE3B228030035003B164C /* ProfileTest.swift */,
 				03BCE3B42803017A003B164C /* AccountTest.swift */,
+				03BCE3BD2803B71D003B164C /* AccountSummaryViewControllerTest.swift */,
 			);
 			path = AccountSummary;
+			sourceTree = "<group>";
+		};
+		03BCE3BA2803B52E003B164C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				03BCE3BB2803B54B003B164C /* ProfileManager.swift */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,6 +356,7 @@
 				03BCE38528016A0B003B164C /* UIViewController+Utils.swift in Sources */,
 				03BCE3B928032C4D003B164C /* SkeletonCell.swift in Sources */,
 				03BCE3AD2802F072003B164C /* Date+Utils.swift in Sources */,
+				03BCE3BC2803B54B003B164C /* ProfileManager.swift in Sources */,
 				033CB18F27FD7FE300B01E0D /* LoginView.swift in Sources */,
 				03BCE382280156D5003B164C /* LocalState.swift in Sources */,
 				03BCE38B2801B6CC003B164C /* AccountSummaryHeaderView.swift in Sources */,
@@ -370,6 +385,7 @@
 				03BCE3A428027636003B164C /* CurrencyFormatterTest.swift in Sources */,
 				03BCE3B52803017A003B164C /* AccountTest.swift in Sources */,
 				03BCE3B328030035003B164C /* ProfileTest.swift in Sources */,
+				03BCE3BE2803B71D003B164C /* AccountSummaryViewControllerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
