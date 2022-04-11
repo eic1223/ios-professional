@@ -11,9 +11,11 @@ class ViewController: UIViewController {
 
     let stackView = UIStackView()
     let newPasswordTextField = PasswordTextField(placeHolderText: "New password")
-    let criteriaView = PasswordCriteriaView(text: "uppercase letter (A-Z)")
-//    let newPasswordTextField2 = PasswordTextField(placeHolderText: "Confirm password")
-    let confirmButton = UIButton()
+//    let criteriaView = PasswordCriteriaView(text: "uppercase letter (A-Z)")
+    let statusView = PasswordStatusView()
+    let confirmPasswordTextField = PasswordTextField(placeHolderText: "Re-enter new password")
+    
+    let confirmButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +33,23 @@ extension ViewController {
         
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        criteriaView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.layer.cornerRadius = 10
+        statusView.clipsToBounds = true
         
-//        newPasswordTextField2.translatesAutoresizingMaskIntoConstraints = false
+        confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
+        confirmButton.configuration = .filled()
+        confirmButton.setTitle("Reset password", for: [])
+//        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .primaryActionTriggered)
     }
     
     func layout() {
-//        stackView.addArrangedSubview(newPasswordTextField)
-        stackView.addArrangedSubview(criteriaView)
-//        stackView.addArrangedSubview(newPasswordTextField2)
+        stackView.addArrangedSubview(newPasswordTextField)
+        stackView.addArrangedSubview(statusView)
+        stackView.addArrangedSubview(confirmPasswordTextField)
+        stackView.addArrangedSubview(confirmButton)
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
