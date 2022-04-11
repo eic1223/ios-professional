@@ -11,12 +11,16 @@ import UIKit
 class PasswordStatusView: UIView {
     
     let stackView = UIStackView()
-    let criteria1 = PasswordCriteriaView(text: "8-32 characters (no spaces)")
     let criteriaLabel = UILabel()
-    let criteria2 = PasswordCriteriaView(text: "uppercase letter (A-Z)")
-    let criteria3 = PasswordCriteriaView(text: "lowercase (a-z)")
-    let criteria4 = PasswordCriteriaView(text: "digit (0-9)")
-    let criteria5 = PasswordCriteriaView(text: "spacial character (e.g. !@#$%^)")
+    
+    let lengthCriteriaView = PasswordCriteriaView(text: "8-32 characters (no spaces)")
+    let uppercaseCriteriaView = PasswordCriteriaView(text: "uppercase letter (A-Z)")
+    let lowercaseCriteiraView = PasswordCriteriaView(text: "lowercase (a-z)")
+    let digitCriteriaView = PasswordCriteriaView(text: "digit (0-9)")
+    let specialCharacterCriteriaView = PasswordCriteriaView(text: "spacial character (e.g. !@#$%^)")
+    
+    // Used to determine if we reset criteria back to empty state
+    private var shouldResetCriteria: Bool = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,22 +54,22 @@ extension PasswordStatusView {
         criteriaLabel.lineBreakMode = .byWordWrapping
         criteriaLabel.attributedText = makeCriteriaMessage()
         
-        criteria1.translatesAutoresizingMaskIntoConstraints = false
-        criteria2.translatesAutoresizingMaskIntoConstraints = false
-        criteria3.translatesAutoresizingMaskIntoConstraints = false
-        criteria4.translatesAutoresizingMaskIntoConstraints = false
-        criteria5.translatesAutoresizingMaskIntoConstraints = false
+        lengthCriteriaView.translatesAutoresizingMaskIntoConstraints = false
+        uppercaseCriteriaView.translatesAutoresizingMaskIntoConstraints = false
+        lowercaseCriteiraView.translatesAutoresizingMaskIntoConstraints = false
+        digitCriteriaView.translatesAutoresizingMaskIntoConstraints = false
+        specialCharacterCriteriaView.translatesAutoresizingMaskIntoConstraints = false
         
         
     }
     
     func layout() {
-        stackView.addArrangedSubview(criteria1)
+        stackView.addArrangedSubview(lengthCriteriaView)
         stackView.addArrangedSubview(criteriaLabel)
-        stackView.addArrangedSubview(criteria2)
-        stackView.addArrangedSubview(criteria3)
-        stackView.addArrangedSubview(criteria4)
-        stackView.addArrangedSubview(criteria5)
+        stackView.addArrangedSubview(uppercaseCriteriaView)
+        stackView.addArrangedSubview(lowercaseCriteiraView)
+        stackView.addArrangedSubview(digitCriteriaView)
+        stackView.addArrangedSubview(specialCharacterCriteriaView)
         addSubview(stackView)
         
         // stack view
@@ -95,4 +99,36 @@ extension PasswordStatusView {
     }
 }
 
-
+// MARK: - Actions
+extension PasswordStatusView {
+    func updateDisplay(_ text: String) {
+        let lengthAndNoSpaceMet = PasswordCriteria.lengthAndNoSpaceMet(text)
+        let uppercaseMet = PasswordCriteria.uppercaseMet(text)
+        let lowercaseMet = PasswordCriteria.lowercaseMet(text)
+        let digitMet = PasswordCriteria.digitMet(text)
+        let specialCharaterMet = PasswordCriteria.specialCharacterMet(text)
+        
+        if shouldResetCriteria{
+            // Inline validation (check or white)
+            lengthAndNoSpaceMet
+                ? lengthCriteriaView.isCriteriaMet = true
+                : lengthCriteriaView.reset()
+            
+            uppercaseMet
+                ? uppercaseCriteriaView.isCriteriaMet = true
+                : uppercaseCriteriaView.reset()
+            
+            lowercaseMet
+                ? lowercaseCriteiraView.isCriteriaMet = true
+                : lowercaseCriteiraView.reset()
+            
+            digitMet
+                ? digitCriteriaView.isCriteriaMet = true
+                : digitCriteriaView.reset()
+            
+            specialCharaterMet
+            ? specialCharacterCriteriaView.isCriteriaMet = true
+            : specialCharacterCriteriaView.reset()
+        }
+    }
+}

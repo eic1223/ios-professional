@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol PasswordTextFieldDelegate: AnyObject {
+    func editingChanged(_ sender: PasswordTextField)
+}
+
 class PasswordTextField: UIView {
     
     let lockImageView = UIImageView(image: UIImage(systemName: "lock.fill"))
@@ -16,6 +20,8 @@ class PasswordTextField: UIView {
     let eyeButton = UIButton(type: .custom)
     let dividerView = UIView()
     let errorMessageLabel = UILabel()
+    
+    weak var delegate: PasswordTextFieldDelegate?
     
     init(placeHolderText: String) {
         self.placeHolderText = placeHolderText
@@ -48,10 +54,13 @@ extension PasswordTextField {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isSecureTextEntry = false
         textField.placeholder = placeHolderText
-//        textField.delegate = self
+        textField.delegate = self
         textField.keyboardType = .asciiCapable
         textField.attributedText = NSAttributedString(string: placeHolderText, attributes: [
             NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
+        
+        // extra interaction
+        textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
         //
         eyeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -67,14 +76,14 @@ extension PasswordTextField {
         errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
         errorMessageLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         errorMessageLabel.textColor = .systemRed
-        errorMessageLabel.text = "Enter your passwords and again and again and again and again and again and again and again and again"
+        errorMessageLabel.text = "Enter your passwords."
         
 //        errorMessageLabel.adjustsFontSizeToFitWidth = true
 //        errorMessageLabel.minimumScaleFactor = 0.8
         errorMessageLabel.numberOfLines = 0
         errorMessageLabel.lineBreakMode = .byWordWrapping
         
-        errorMessageLabel.isHidden = false // true
+        errorMessageLabel.isHidden = true // true
     }
     
     func layout() {
@@ -131,4 +140,18 @@ extension PasswordTextField {
         textField.isSecureTextEntry.toggle()
         textField.isSelected.toggle()
     }
+    
+    @objc func textFieldEditingChanged(_ sender: UITextField) {
+//        print("foo - \(sender.text)")
+        delegate?.editingChanged(self)
+    }
+}
+
+extension PasswordTextField: UITextFieldDelegate {
+   
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        print(textField.text)
+        return true
+    }
+
 }
