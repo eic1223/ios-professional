@@ -8,10 +8,10 @@
 import UIKit
 
 class ViewController: UIViewController {
+    typealias CustomValidation = PasswordTextField.CustomValidation
 
     let stackView = UIStackView()
     let newPasswordTextField = PasswordTextField(placeHolderText: "New password")
-//    let criteriaView = PasswordCriteriaView(text: "uppercase letter (A-Z)")
     let statusView = PasswordStatusView()
     let confirmPasswordTextField = PasswordTextField(placeHolderText: "Re-enter new password")
     
@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         style()
         layout()
     }
@@ -26,13 +27,84 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
+    
+    func setup() {
+        setupNewPassword()
+        setupConfirmPassword()
+        setupDismissKeyboardGesture()
+        setupKeyboardHiding()
+    }
+    
+    // typealias CustomValidation = (_ textValue: String?) -> (Bool, String)?
+    
+    private func setupNewPassword() {
+        let newPasswordValidation: CustomValidation = { text in
+            
+            // Empty text
+            guard let text = text, !text.isEmpty else {
+                self.statusView.reset()
+                return (false, "Enter your password.")
+            }
+            
+            // Valid characters
+            let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXWY0123456789.,!@#$%^&*()"
+            let invalidSet = CharacterSet(charactersIn: validChars).inverted
+            guard text.rangeOfCharacter(from: invalidSet) == nil else {
+                self.statusView.reset()
+                return (false, "Enter valid special chars (.,!@#$%^&*()?) with no spaces.")
+            }
+            
+            // Criteria met
+            self.statusView.updateDisplay(text)
+            if !self.statusView.validate(text) {
+                return (false, "Your password must meet the requirements below.")
+            }
+            
+            return (true, "")
+        }
+        
+        newPasswordTextField.customValidation = newPasswordValidation
+        newPasswordTextField.delegate = self
+    }
+    
+    private func setupConfirmPassword() {
+        let comfirmPasswordValidation: CustomValidation = { text in
+            guard let text = text, !text.isEmpty else {
+                return (false, "Enter Your password.")
+            }
+            
+            guard text == self.newPasswordTextField.textField.text else {
+                return (false, "Password do not match.")
+            }
+            
+            return (true, "")
+        }
+        
+        confirmPasswordTextField.customValidation = comfirmPasswordValidation
+        confirmPasswordTextField.delegate = self
+    }
+    
+    private func setupKeyboardHiding() {
+        
+    }
+    
+    
+    
+    private func setupDismissKeyboardGesture() {
+        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        view.addGestureRecognizer(dismissKeyboardTap)
+    }
+    
+    @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
+        view.endEditing(true) // resign first responder
+    }
+    
     func style() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
         
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        newPasswordTextField.delegate = self
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         statusView.layer.cornerRadius = 10
@@ -67,6 +139,19 @@ extension ViewController: PasswordTextFieldDelegate {
     func editingChanged(_ sender: PasswordTextField) {
         if sender === newPasswordTextField {
             statusView.updateDisplay(sender.textField.text ?? "")
+        }
+    }
+    
+    func editingDidEnd(_ sender: PasswordTextField) {
+//        print("foo - ViewController edittingDidEnd: \(sender.textField.text)")
+        if sender === newPasswordTextField {
+            
+            // as soon as we lose focus, make X appear
+            statusView.shouldResetCriteria = false
+            
+            _ = newPasswordTextField.validate()
+        } else if sender === confirmPasswordTextField {
+            _ = confirmPasswordTextField.validate()
         }
     }
 }
